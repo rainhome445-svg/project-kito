@@ -1,0 +1,309 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Color Palette */
+  --color-background: #000000;
+  --color-background-secondary: #0a0a0a;
+  --color-surface: #0a0a0a;
+  --color-surface-hover: #171717;
+  --color-border-subtle: #1f1f1f;
+  --color-blue-deep: #1d4ed8;
+  --color-blue-light: #3b82f6;
+  --color-green-bullish: #059669;
+  --color-red-bearish: #dc2626;
+  --color-gold-premium: #d97706;
+  --color-warning: #d97706;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #737373;
+  --color-text-tertiary: #525252;
+  --color-text-mono: #a3a3a3;
+  --color-overlay-dim: rgba(0,0,0,0.9);
+  --color-skeleton-base: #171717;
+  --color-skeleton-highlight: #262626;
+
+  /* Font Families - Institutional Web3 Terminal */
+  /* Headings/Brand: Space Grotesk - sharp, tech, institutional */
+  --font-heading: 'Space Grotesk', var(--font-heading), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  /* Body/UI: Inter - clean readability */
+  --font-body: 'Inter', var(--font-body), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  /* Numbers/Data: JetBrains Mono - strict tabular lining for market data */
+  --font-mono: 'JetBrains Mono', var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* ============================================
+     DESIGN TOKENS - HGM Terminal
+     ============================================ */
+  
+  /* Radius System - Sharp, Professional (4px-6px) */
+  --radius-sm: 4px;   /* Inputs, small tags */
+  --radius-md: 6px;   /* Cards, buttons, widgets (HGM STANDARD) */
+  --radius-none: 0px; /* Tables, data displays */
+  
+  /* Transitions - Consistent timing */
+  --animate-fast: 150ms ease-out;
+  --animate-normal: 250ms ease-out;
+  --animate-slow: 400ms ease-out;
+}
+
+/* ============================================
+   TYPOGRAPHY SYSTEM - HGM Web3 Terminal
+   ============================================
+   
+   Visual Hierarchy:
+   - H1-H6: Space Grotesk (Headings/Brand), Bold, text-slate-100, tracking-tighter, leading-tight
+   - Body: Inter (Body/UI), Normal, text-slate-300, leading-relaxed
+   - Blockquotes: Inter, Italic, border-l-4 border-blue-500, pl-4
+   - Live Ticker & Prices: JetBrains Mono, Bold, tabular-nums
+   - Metadata: Space Grotesk, uppercase, tracking-widest, text-[10px], font-semibold
+   ============================================ */
+
+@layer base {
+  /* Headings H1-H6: Space Grotesk, Bold, text-slate-100, tracking-tighter, leading-tight */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold text-slate-100 tracking-tighter leading-tight;
+  }
+
+  h1 {
+    @apply text-4xl sm:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  h4, h5, h6 {
+    @apply font-heading font-semibold text-slate-100 tracking-tight leading-snug;
+  }
+
+  h4 {
+    @apply text-xl sm:text-2xl;
+  }
+
+  h5 {
+    @apply text-lg sm:text-xl;
+  }
+
+  h6 {
+    @apply text-base sm:text-lg;
+  }
+
+  /* Body Text: Secondary Font, text-slate-300, Normal weight, leading-relaxed */
+  p {
+    @apply font-body font-normal text-slate-300 leading-relaxed;
+  }
+
+  /* Blockquotes: Secondary Font, Italic, border-l-4 border-blue-500, pl-4 */
+  blockquote {
+    @apply font-body italic border-l-4 border-blue-500 pl-4 text-slate-300 leading-relaxed;
+  }
+
+  /* Code & Pre: JetBrains Mono for code blocks - with tabular nums for data alignment */
+  code, pre, kbd, samp {
+    @apply font-mono text-sm text-slate-300 tabular-nums;
+  }
+
+  /* Links */
+  a {
+    @apply font-body text-slate-300 hover:text-blue-light transition-colors;
+  }
+
+  /* Lists */
+  ul, ol {
+    @apply font-body text-slate-300 leading-relaxed;
+  }
+
+  /* Strong/Emphasis */
+  strong {
+    @apply font-body font-semibold text-slate-100;
+  }
+
+  em {
+    @apply font-body italic text-slate-300;
+  }
+
+  /* Small text */
+  small {
+    @apply font-body text-xs text-slate-400;
+  }
+
+  /* Metadata styling utility class */
+  .meta {
+    @apply font-heading uppercase tracking-widest text-[10px] font-semibold text-slate-400;
+  }
+
+  /* Live ticker & prices: Monospace, Bold */
+  .ticker-data, .price-data {
+    @apply font-mono font-bold;
+  }
+
+  /* ============================================
+     BASE COMPONENT CLASSES - HGM Terminal
+     ============================================ */
+  
+  /* Card - HGM Standard */
+  .card {
+    @apply bg-surface border border-border-subtle rounded-md;
+  }
+  
+  .card-hover {
+    @apply transition-colors duration-200;
+  }
+  .card-hover:hover {
+    @apply bg-surface-hover border-white/10;
+  }
+
+  /* Button - HGM Standard */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:pointer-events-none disabled:opacity-50;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-light text-white hover:bg-blue-deep;
+  }
+  
+  .btn-secondary {
+    @apply bg-white/10 text-white hover:bg-white/20 border border-white/10;
+  }
+  
+  .btn-ghost {
+    @apply hover:bg-white/5 text-slate-300 hover:text-white;
+  }
+
+  /* Input - HGM Standard */
+  .input {
+    @apply bg-surface border border-border-subtle rounded-sm px-3 py-2 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-blue-light/50 transition-colors;
+  }
+
+  /* Data Table Row - HGM Standard */
+  .table-row {
+    @apply border-b border-border-subtle transition-colors duration-150;
+  }
+  .table-row:hover {
+    @apply bg-white/5;
+  }
+}
+
+@layer utilities {
+  /* Typography utility classes for consistent application */
+  
+  /* Heading variants */
+  .text-heading-display {
+    @apply font-heading font-black text-5xl sm:text-6xl lg:text-7xl tracking-tighter leading-none text-slate-100;
+  }
+
+  .text-heading-xl {
+    @apply font-heading font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-tight text-slate-100;
+  }
+
+  .text-heading-lg {
+    @apply font-heading font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tighter leading-tight text-slate-100;
+  }
+
+  .text-heading-md {
+    @apply font-heading font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tighter leading-tight text-slate-100;
+  }
+
+  .text-heading-sm {
+    @apply font-heading font-bold text-xl sm:text-2xl tracking-tighter leading-tight text-slate-100;
+  }
+
+  /* Body text variants */
+  .text-body-lg {
+    @apply font-body font-normal text-lg text-slate-300 leading-relaxed;
+  }
+
+  .text-body-md {
+    @apply font-body font-normal text-base text-slate-300 leading-relaxed;
+  }
+
+  .text-body-sm {
+    @apply font-body font-normal text-sm text-slate-300 leading-relaxed;
+  }
+
+  .text-body-xs {
+    @apply font-body font-normal text-xs text-slate-400 leading-normal;
+  }
+
+  /* Metadata variant */
+  .text-meta {
+    @apply font-heading uppercase tracking-widest text-[10px] font-semibold text-slate-400;
+  }
+
+  /* Data/Mono variant - with tabular nums for strict alignment */
+  .text-data {
+    @apply font-mono font-bold text-slate-100 tabular-nums;
+  }
+
+  .text-data-sm {
+    @apply font-mono font-medium text-sm text-slate-300 tabular-nums;
+  }
+
+  .text-data-xs {
+    @apply font-mono font-medium text-xs text-slate-400 tabular-nums;
+  }
+
+  /* Glassmorphism variants */
+  .glassmorphism-base {
+    background-color: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .glassmorphism-strong {
+    background-color: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes flash-green {
+  0%, 100% { background-color: transparent; }
+  50% { background-color: rgba(16, 185, 129, 0.2); }
+}
+
+@keyframes flash-red {
+  0%, 100% { background-color: transparent; }
+  50% { background-color: rgba(239, 68, 68, 0.2); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.flash-green {
+  animation: flash-green 0.5s ease-out;
+}
+
+.flash-red {
+  animation: flash-red 0.5s ease-out;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Base body styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
