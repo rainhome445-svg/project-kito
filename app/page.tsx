@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 import { mockArticles } from '@/data/mock';
 // Keep other imports if used later, removed unused ones for the hero implementation
 
@@ -111,6 +112,52 @@ export default function Home() {
     timeAgo: [`2 HOURS AGO`, `4 HOURS AGO`, `5 HOURS AGO`, `7 HOURS AGO`, `8 HOURS AGO`, `12 HOURS AGO`, `14 HOURS AGO`, `16 HOURS AGO`][i],
     slug: `flash-article-${i}`
   }));
+
+  // Phase 5: Web3 Academy Modules mock data
+  const learningModules = [
+    {
+      id: 'mod-1',
+      title: 'Blockchain Infrastructure & Consensus Nodes',
+      description: 'Understand the foundational layer of distributed ledgers, validator economics, and the mechanics of Proof of Stake networks.',
+      moduleNumber: 'MODULE 01',
+      slug: 'blockchain-infrastructure'
+    },
+    {
+      id: 'mod-2',
+      title: 'Advanced Tokenomics & Value Accrual Analysis',
+      description: 'Analyze monetary policies, emission schedules, sink mechanisms, and how protocols capture and distribute value to token holders.',
+      moduleNumber: 'MODULE 02',
+      slug: 'advanced-tokenomics'
+    },
+    {
+      id: 'mod-3',
+      title: 'Smart Contract Security & Audit Frameworks',
+      description: 'Explore common attack vectors, reentrancy vulnerabilities, formal verification, and best practices for securing decentralized applications.',
+      moduleNumber: 'MODULE 03',
+      slug: 'smart-contract-security'
+    },
+    {
+      id: 'mod-4',
+      title: 'MEV, Order Flow, & Block Building Ethics',
+      description: 'Dive into Maximal Extractable Value, the validator-builder separation (VBS) model, and the impact of private mempools on market fairness.',
+      moduleNumber: 'MODULE 04',
+      slug: 'mev-order-flow'
+    },
+    {
+      id: 'mod-5',
+      title: 'Institutional Custody & Digital Asset Safety',
+      description: 'Examine multi-party computation (MPC), hardware security modules (HSMs), and enterprise-grade custody solutions for institutional investors.',
+      moduleNumber: 'MODULE 05',
+      slug: 'institutional-custody'
+    },
+    {
+      id: 'mod-6',
+      title: 'Cross-Chain Interoperability & CCIP Mechanics',
+      description: 'Learn about bridging architecture, messaging protocols, wrapped assets, and the security models of cross-chain communication protocols.',
+      moduleNumber: 'MODULE 06',
+      slug: 'cross-chain-interoperability'
+    }
+  ];
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
@@ -267,6 +314,55 @@ export default function Home() {
                 <div className="font-mono text-[10px] uppercase text-muted-foreground">
                   {report.readTime} &bull; FULL REPORT
                 </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* PHASE 5 - WEB3 ACADEMY SECTION */}
+      <section className="mt-16 pt-8 border-t border-border-subtle mb-16">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl uppercase font-bold font-heading">
+            WEB3 ACADEMY
+          </h2>
+          <Link
+            href="/academy"
+            className="text-xs uppercase tracking-widest font-mono text-muted-foreground hover:text-white transition-colors"
+          >
+            START LEARNING &rarr;
+          </Link>
+        </div>
+
+        {/* 3-Column Module Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+          {learningModules.map((module) => (
+            <Link
+              key={module.id}
+              href={`/academy/${module.slug}`}
+              className="flex flex-col bg-white/[0.02] border border-border-subtle p-6 rounded-sm group hover:border-foreground/30 transition-all cursor-pointer h-full justify-between"
+            >
+              <div>
+                {/* Card Header */}
+                <div className="flex justify-between items-center">
+                  <span className="font-mono text-[10px] font-bold px-2 py-0.5 border border-border-subtle bg-white/5 uppercase tracking-widest text-white">
+                    {module.moduleNumber}
+                  </span>
+                  <ArrowUpRight size={16} strokeWidth={1.5} className="text-neutral-500 group-hover:text-white transition-colors" />
+                </div>
+
+                {/* Content */}
+                <h3 className="font-heading text-xl font-bold text-foreground mt-4 mb-2 group-hover:text-white transition-colors">
+                  {module.title}
+                </h3>
+                <p className="text-xs text-muted-foreground line-clamp-2 mb-6 font-sans">
+                  {module.description}
+                </p>
+              </div>
+
+              {/* Interactive Progress Bar */}
+              <div className="w-full bg-white/5 h-1 rounded-full overflow-hidden mt-auto">
+                <div className="bg-muted-foreground h-full w-0 group-hover:w-full transition-all duration-1000 ease-out" />
               </div>
             </Link>
           ))}
