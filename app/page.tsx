@@ -44,6 +44,46 @@ export default function Home() {
     }
   ];
 
+  // Institutional Research mock data (4 reports)
+  const researchReports = [
+    {
+      id: 'res-1',
+      title: 'Q3 2024 Market Structure Report: The Impact of Institutional Spot ETFs',
+      tag: 'MARKET REPORT',
+      excerpt: 'An in-depth analysis of liquidity shifts, trading volume distribution, and order book depth following the approval and listing of major spot cryptocurrency ETFs.',
+      image: 'https://images.unsplash.com/photo-1640161704729-cbe966a08476?auto=format&fit=crop&q=80&w=800',
+      readTime: '45 MIN READ',
+      slug: 'q3-2024-market-structure'
+    },
+    {
+      id: 'res-2',
+      title: 'State of Ethereum Rollups: Analyzing L2 Value Accrual',
+      tag: 'ON-CHAIN DATA',
+      excerpt: 'Evaluating the revenue models, sequencer fees, and overall value capture mechanisms of top Ethereum Layer 2 scaling solutions post-Dencun upgrade.',
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
+      readTime: '30 MIN READ',
+      slug: 'state-of-ethereum-rollups'
+    },
+    {
+      id: 'res-3',
+      title: 'Regulatory Landscape: Global Stablecoin Frameworks',
+      tag: 'DEEP DIVE',
+      excerpt: 'A comprehensive comparative study of emerging stablecoin regulations across the US, EU (MiCA), UK, and major Asian financial hubs.',
+      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800',
+      readTime: '60 MIN READ',
+      slug: 'global-stablecoin-frameworks'
+    },
+    {
+      id: 'res-4',
+      title: 'Decentralized Physical Infrastructure Networks (DePIN)',
+      tag: 'SECTOR OVERVIEW',
+      excerpt: 'Exploring the intersection of blockchain technology and real-world infrastructure, from decentralized wireless networks to compute and energy grids.',
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+      readTime: '55 MIN READ',
+      slug: 'depin-sector-overview'
+    }
+  ];
+
   // Flash News mock data (8 articles)
   const flashNewsArticles = Array.from({ length: 8 }).map((_, i) => ({
     id: `flash-${i}`,
@@ -174,6 +214,59 @@ export default function Home() {
               </p>
               <div className="font-mono text-[10px] uppercase text-muted-foreground border-t border-border-subtle pt-3">
                 {article.timeAgo}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* PHASE 4 - INSTITUTIONAL RESEARCH SECTION */}
+      <section className="mt-16 pt-8 border-t border-border-subtle mb-16">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl uppercase font-bold font-heading">
+            INSTITUTIONAL RESEARCH
+          </h2>
+          <Link
+            href="/research"
+            className="text-xs uppercase tracking-widest font-mono text-muted-foreground hover:text-foreground transition-colors"
+          >
+            VIEW PDF LIBRARY &rarr;
+          </Link>
+        </div>
+
+        {/* 2-Column Horizontal Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+          {researchReports.map((report) => (
+            <Link
+              key={report.id}
+              href={`/research/${report.slug}`}
+              className="flex flex-col sm:flex-row border border-border-subtle rounded-sm overflow-hidden group hover:bg-white/5 transition-colors cursor-pointer h-full"
+            >
+              {/* Image Area */}
+              <div className="w-full sm:w-2/5 h-48 sm:h-auto relative overflow-hidden shrink-0">
+                <Image
+                  src={report.image}
+                  alt={report.title}
+                  fill
+                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                />
+              </div>
+
+              {/* Content Area */}
+              <div className="p-6 sm:w-3/5 flex flex-col justify-center">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-3 border border-border-subtle w-max px-2 py-0.5 rounded-sm">
+                  {report.tag}
+                </span>
+                <h3 className="font-heading text-xl font-bold leading-snug mb-3 group-hover:text-muted-foreground text-foreground transition-colors duration-300 line-clamp-2">
+                  {report.title}
+                </h3>
+                <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
+                  {report.excerpt}
+                </p>
+                <div className="font-mono text-[10px] uppercase text-muted-foreground">
+                  {report.readTime} &bull; FULL REPORT
+                </div>
               </div>
             </Link>
           ))}
