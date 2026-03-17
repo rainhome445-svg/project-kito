@@ -44,6 +44,34 @@ export default function Home() {
     }
   ];
 
+  // Flash News mock data (8 articles)
+  const flashNewsArticles = Array.from({ length: 8 }).map((_, i) => ({
+    id: `flash-${i}`,
+    title: [
+      'Federal Reserve hints at potential rate cuts in Q4 following inflation report',
+      'Ethereum layer-2 TVL hits all-time high as gas fees drop to record lows',
+      'New European crypto regulations spark debate among major exchange operators',
+      'Institutional crypto investment products see 5th consecutive week of inflows',
+      'Bitcoin mining difficulty adjusts upwards by 3.5% as hash rate climbs',
+      'Major tech firm announces integration of stablecoin payments for global vendors',
+      'NFT market shows signs of revival with blue-chip collections rallying',
+      'Central bank digital currency pilot expands to include cross-border transactions'
+    ][i],
+    category: ['MACRO', 'TECH', 'REGULATION', 'MARKETS', 'MINING', 'ADOPTION', 'NFTS', 'CBDC'][i],
+    excerpt: [
+      'The latest CPI print came in slightly lower than expected, prompting markets to price in a higher probability of aggressive monetary easing by year-end.',
+      'Optimism and Arbitrum lead the charge as the Dencun upgrade continues to drive users toward more cost-effective scaling solutions.',
+      'MiCA implementation approaches, leading to a wave of compliance updates and strategic shifts from global trading platforms operating in the EU.',
+      'Digital asset funds saw $400M in net inflows this week, heavily skewed towards Bitcoin but with growing interest in multi-asset products.',
+      'Miners continue to deploy more efficient rigs ahead of the halving, pushing the network security to unprecedented levels despite margin pressures.',
+      'The payment giant will now settle invoices using USDC, citing speed and reduced friction in international wire transfers.',
+      'Pudgy Penguins and BAYC floor prices have seen a 15% uptick over the past 72 hours, accompanied by a surge in trading volume across major marketplaces.',
+      'Three central banks have joined the collaborative project testing atomic settlement capabilities for wholesale CBDCs.'
+    ][i],
+    timeAgo: [`2 HOURS AGO`, `4 HOURS AGO`, `5 HOURS AGO`, `7 HOURS AGO`, `8 HOURS AGO`, `12 HOURS AGO`, `14 HOURS AGO`, `16 HOURS AGO`][i],
+    slug: `flash-article-${i}`
+  }));
+
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
       {/* HERO SECTION - The Bento Grid */}
@@ -113,15 +141,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Rest of the original content commented out or removed for clarity in this phase,
-          but usually we'd keep the rest of the page structure intact if we were only replacing the top.
-          Since the prompt asks to "Build the Global Header and the top Hero Section for the homepage",
-          and didn't explicitly ask to delete the rest, I will truncate the rest to focus on the deliverable
-          and keep the file clean. We can add more sections in later phases. */}
+      {/* PHASE 3 - FLASH NEWS SECTION */}
+      <section className="border-t border-border-subtle pt-8 mt-16">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl sm:text-3xl uppercase font-bold font-heading">
+            FLASH NEWS
+          </h2>
+          <Link
+            href="/archive"
+            className="text-xs uppercase tracking-widest font-mono text-muted-foreground hover:text-foreground transition-colors"
+          >
+            VIEW ARCHIVE &rarr;
+          </Link>
+        </div>
 
-      <div className="border-t border-border-subtle pt-8 text-center">
-        <p className="font-mono text-xs text-text-tertiary uppercase tracking-widest">End of Phase 2 Hero Section</p>
-      </div>
+        {/* 4-Column Dense Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          {flashNewsArticles.map((article) => (
+            <Link
+              key={article.id}
+              href={`/article/${article.slug}`}
+              className="flex flex-col p-5 rounded-sm border border-border-subtle group hover:bg-white/5 transition-colors cursor-pointer"
+            >
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-3">
+                {article.category}
+              </span>
+              <h3 className="font-heading text-lg font-bold leading-snug mb-3 group-hover:underline text-foreground">
+                {article.title}
+              </h3>
+              <p className="text-xs text-muted-foreground line-clamp-3 mb-4 flex-grow">
+                {article.excerpt}
+              </p>
+              <div className="font-mono text-[10px] uppercase text-muted-foreground border-t border-border-subtle pt-3">
+                {article.timeAgo}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
     </div>
   );
 }
