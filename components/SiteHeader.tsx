@@ -10,93 +10,54 @@ export function SiteHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const topLinks = [
-    { name: 'ACCESS', href: '/access' },
-    { name: 'CAMPUS', href: '/campus' },
-    { name: 'HGM PRO', href: '/pro' },
-    { name: 'HGM RESEARCH', href: '/research' },
-    { name: 'HGM DATA', href: '/market' },
-    { name: 'HGM EVENTS', href: '/events' },
-    { name: 'HGM PODCASTS', href: '/podcasts' },
-    { name: 'HGM NEWSLETTERS', href: '/newsletters' },
-  ];
-
   const mainLinks = [
     { name: 'NEWS', href: '/news' },
-    { name: 'DATA', href: '/market' },
     { name: 'RESEARCH', href: '/research' },
-    { name: 'LEARN', href: '/learn' },
-    { name: 'WEB3', href: '/web3' },
-    { name: 'PRICES', href: '/prices' },
-    { name: 'RATINGS', href: '/ratings' },
-    { name: 'ABOUT', href: '/about' },
+    { name: 'LEARNS', href: '/learns' },
+    { name: 'PEOPLE', href: '/people' },
   ];
 
   return (
     <header className="w-full bg-background/80 backdrop-blur-md border-b border-border-subtle sticky top-0 z-50">
-      {/* Top Tier */}
-      <div className="hidden lg:flex items-center justify-center gap-6 px-6 py-2 border-b border-border-subtle bg-[#111]/90 backdrop-blur-sm">
-        {topLinks.map((link) => (
-          <Link
-            key={link.name}
-            href={link.href}
-            className="text-[10px] font-semibold text-text-secondary hover:text-text-primary transition-colors tracking-wide"
-          >
-            {link.name}
-          </Link>
-        ))}
-      </div>
-
-      {/* Main Tier */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <span className="font-black text-2xl tracking-tighter text-white group-hover:text-blue-light transition-colors">
-              HGM Terminal
+          {/* Left: Brand */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <span className="font-heading font-bold uppercase text-2xl tracking-tighter text-text-primary group-hover:text-blue-light transition-colors">
+              HGM TERMINAL
             </span>
-            <div className="flex items-center gap-1.5 ml-1">
-              <span className="w-2 h-2 rounded-sm bg-red-500 animate-pulse" />
-              <span className="text-[9px] font-bold text-white/60 tracking-widest uppercase">Live</span>
+            <div className="flex items-center gap-1.5 bg-surface border border-border-subtle px-2 py-0.5 rounded-sm">
+              <span className="w-2 h-2 rounded-full bg-red-bearish animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+              <span className="font-mono text-[10px] font-bold text-text-secondary tracking-widest uppercase">Live</span>
             </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          {/* Center: Links */}
+          <nav className="hidden md:flex items-center gap-8">
             {mainLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  'text-xs font-semibold transition-all hover:text-blue-light tracking-wide relative group',
-                  pathname === link.href ? 'text-blue-light' : 'text-text-primary'
+                  'font-mono uppercase text-xs tracking-widest transition-colors',
+                  pathname === link.href ? 'text-white' : 'text-text-muted hover:text-white'
                 )}
               >
                 {link.name}
-                <span className={cn(
-                  "absolute -bottom-6 left-0 w-full h-[2px] bg-blue-light transition-transform origin-left",
-                  pathname === link.href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                )} />
               </Link>
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-3">
-            <button className="p-2 text-text-primary hover:text-blue-light transition-all bg-white/5 hover:bg-white/10 rounded-md backdrop-blur-md border border-white/5">
-              <Search className="w-4 h-4" />
-            </button>
-            <button className="hidden sm:block p-2 text-text-primary hover:text-blue-light transition-all bg-white/5 hover:bg-white/10 rounded-md backdrop-blur-md border border-white/5">
-              <Bell className="w-4 h-4" />
-            </button>
-            <button className="hidden sm:block p-2 text-text-primary hover:text-blue-light transition-all bg-white/5 hover:bg-white/10 rounded-md backdrop-blur-md border border-white/5">
-              <User className="w-4 h-4" />
-            </button>
-            <button className="hidden lg:block bg-blue-light hover:bg-blue-deep text-white text-xs font-semibold px-5 py-2.5 rounded-md tracking-wide transition-all border border-transparent hover:border-white/10 ml-2">
-              SUBSCRIBE
-            </button>
+          {/* Right: Action */}
+          <div className="flex items-center gap-4">
+            <Link
+              href="/about"
+              className="hidden sm:block font-mono uppercase text-xs tracking-widest text-text-muted hover:text-white transition-colors"
+            >
+              ABOUT ME
+            </Link>
             <button
-              className="lg:hidden p-2 text-text-primary hover:text-blue-light transition-all bg-white/5 hover:bg-white/10 rounded-md backdrop-blur-md border border-white/5"
+              className="md:hidden p-2 text-text-secondary hover:text-text-primary transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -105,10 +66,10 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile Menu - CSS Only */}
+      {/* Mobile Menu */}
       <div 
-        className={`lg:hidden bg-background/95 backdrop-blur-xl border-b border-border-subtle overflow-hidden transition-all duration-300 ${
-          isMobileMenuOpen ? 'max-h-96' : 'max-h-0'
+        className={`md:hidden bg-background border-b border-border-subtle overflow-hidden transition-all duration-300 ${
+          isMobileMenuOpen ? 'max-h-64' : 'max-h-0'
         }`}
       >
         <div className="px-4 py-4 flex flex-col gap-4">
@@ -117,25 +78,19 @@ export function SiteHeader() {
               key={link.name}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className={cn(
-                'text-lg font-semibold p-2 transition-colors tracking-wide rounded-md',
-                pathname === link.href ? 'text-blue-light bg-white/5' : 'text-text-primary hover:text-blue-light hover:bg-white/5'
-              )}
+              className="font-mono uppercase text-sm tracking-widest text-text-secondary hover:text-white transition-colors"
             >
               {link.name}
             </Link>
           ))}
-          <div className="border-t border-border-subtle pt-4 mt-2 grid grid-cols-2 gap-4">
-            {topLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors tracking-wide p-2 hover:bg-white/5 rounded-md"
-              >
-                {link.name}
-              </Link>
-            ))}
+          <div className="border-t border-border-subtle pt-4 mt-2">
+            <Link
+              href="/about"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="font-mono uppercase text-sm tracking-widest text-text-secondary hover:text-white transition-colors"
+            >
+              ABOUT ME
+            </Link>
           </div>
         </div>
       </div>
