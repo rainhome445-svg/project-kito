@@ -2,25 +2,27 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* Color Palette */
-  --color-background: #000000;
-  --color-background-secondary: #0a0a0a;
-  --color-surface: #0a0a0a;
-  --color-surface-hover: #171717;
-  --color-border-subtle: #1f1f1f;
-  --color-blue-deep: #1d4ed8;
-  --color-blue-light: #3b82f6;
-  --color-green-bullish: #059669;
-  --color-red-bearish: #dc2626;
+  /* Color Palette - Matte & Sharp */
+  --color-background: #121418;
+  --color-background-secondary: #1A1D24;
+  --color-surface: #1A1D24;
+  --color-surface-hover: #22262E;
+  --color-border-subtle: #2A2D34;
+  --color-border-matte-line: #2A2D34; /* For explicit 1px sharp lines */
+  --color-blue-deep: #0040D1;
+  --color-blue-light: #0055FF; /* Electric Blue Accent */
+  --color-green-bullish: #10B981; /* Matte Green */
+  --color-red-bearish: #EF4444; /* Matte Red */
   --color-gold-premium: #d97706;
   --color-warning: #d97706;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #737373;
-  --color-text-tertiary: #525252;
-  --color-text-mono: #a3a3a3;
-  --color-overlay-dim: rgba(0,0,0,0.9);
-  --color-skeleton-base: #171717;
-  --color-skeleton-highlight: #262626;
+  --color-text-primary: #F3F4F6; /* High contrast, not pure white */
+  --color-text-secondary: #D1D5DB; /* Medium contrast */
+  --color-text-tertiary: #9CA3AF; /* Low contrast */
+  --color-text-mono: #9CA3AF;
+  --color-text-muted: #6B7280; /* Muted/Disabled */
+  --color-overlay-dim: rgba(18, 20, 24, 0.9);
+  --color-skeleton-base: #1A1D24;
+  --color-skeleton-highlight: #2A2D34;
 
   /* Font Families - Institutional Web3 Terminal */
   /* Headings/Brand: Space Grotesk - sharp, tech, institutional */
@@ -36,9 +38,9 @@
      DESIGN TOKENS - HGM Terminal
      ============================================ */
   
-  /* Radius System - Sharp, Professional (4px-6px) */
-  --radius-sm: 4px;   /* Inputs, small tags */
-  --radius-md: 6px;   /* Cards, buttons, widgets (HGM STANDARD) */
+  /* Radius System - Matte & Sharp (0px-4px) */
+  --radius-sm: 2px;   /* Inputs, small tags */
+  --radius-md: 4px;   /* Cards, buttons, widgets (HGM STANDARD) */
   --radius-none: 0px; /* Tables, data displays */
   
   /* Transitions - Consistent timing */
@@ -48,29 +50,28 @@
 }
 
 /* ============================================
-   TYPOGRAPHY SYSTEM - HGM Web3 Terminal
+   TYPOGRAPHY SYSTEM - Matte & Sharp
    ============================================
    
    Visual Hierarchy:
-   - H1-H6: Space Grotesk (Headings/Brand), Bold, text-slate-100, tracking-tighter, leading-tight
-   - Body: Inter (Body/UI), Normal, text-slate-300, leading-relaxed
-   - Blockquotes: Inter, Italic, border-l-4 border-blue-500, pl-4
-   - Live Ticker & Prices: JetBrains Mono, Bold, tabular-nums
-   - Metadata: Space Grotesk, uppercase, tracking-widest, text-[10px], font-semibold
+   - H1-H6: Space Grotesk (Headings/Brand), Bold, tight line-height (1.1)
+   - Body: Inter (Body/UI), Normal, text-text-secondary, leading-relaxed
+   - Data: JetBrains Mono, Bold, tabular-nums
    ============================================ */
 
 @layer base {
-  /* Headings H1-H6: Space Grotesk, Bold, text-slate-100, tracking-tighter, leading-tight */
+  /* Headings H1-H6: Space Grotesk, Bold, High Contrast Text, tight tracking/leading */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold text-slate-100 tracking-tighter leading-tight;
+    @apply font-heading font-bold text-text-primary tracking-tight;
   }
 
   h1 {
-    @apply text-4xl sm:text-5xl lg:text-6xl;
+    /* "Blocky" tight line-height */
+    @apply text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tighter;
   }
 
   h2 {
-    @apply text-3xl sm:text-4xl lg:text-5xl;
+    @apply text-3xl sm:text-4xl lg:text-5xl leading-[1.2];
   }
 
   h3 {
@@ -93,48 +94,48 @@
     @apply text-base sm:text-lg;
   }
 
-  /* Body Text: Secondary Font, text-slate-300, Normal weight, leading-relaxed */
+  /* Body Text: Secondary Font, text-text-secondary, Normal weight, leading-relaxed */
   p {
-    @apply font-body font-normal text-slate-300 leading-relaxed;
+    @apply font-body font-normal text-text-secondary leading-relaxed;
   }
 
-  /* Blockquotes: Secondary Font, Italic, border-l-4 border-blue-500, pl-4 */
+  /* Blockquotes: Secondary Font, Italic, border-l-4 border-blue-light, pl-4 */
   blockquote {
-    @apply font-body italic border-l-4 border-blue-500 pl-4 text-slate-300 leading-relaxed;
+    @apply font-body italic border-l-4 border-blue-light pl-4 text-text-secondary leading-relaxed;
   }
 
   /* Code & Pre: JetBrains Mono for code blocks - with tabular nums for data alignment */
   code, pre, kbd, samp {
-    @apply font-mono text-sm text-slate-300 tabular-nums;
+    @apply font-mono text-sm text-text-secondary tabular-nums;
   }
 
   /* Links */
   a {
-    @apply font-body text-slate-300 hover:text-blue-light transition-colors;
+    @apply font-body text-text-secondary hover:text-blue-light transition-colors;
   }
 
   /* Lists */
   ul, ol {
-    @apply font-body text-slate-300 leading-relaxed;
+    @apply font-body text-text-secondary leading-relaxed;
   }
 
   /* Strong/Emphasis */
   strong {
-    @apply font-body font-semibold text-slate-100;
+    @apply font-body font-semibold text-text-primary;
   }
 
   em {
-    @apply font-body italic text-slate-300;
+    @apply font-body italic text-text-secondary;
   }
 
   /* Small text */
   small {
-    @apply font-body text-xs text-slate-400;
+    @apply font-body text-xs text-text-tertiary;
   }
 
   /* Metadata styling utility class */
   .meta {
-    @apply font-heading uppercase tracking-widest text-[10px] font-semibold text-slate-400;
+    @apply font-heading uppercase tracking-wider text-[11px] font-semibold text-text-tertiary;
   }
 
   /* Live ticker & prices: Monospace, Bold */
@@ -146,21 +147,23 @@
      BASE COMPONENT CLASSES - HGM Terminal
      ============================================ */
   
-  /* Card - HGM Standard */
+  /* Card - Matte & Sharp Standard */
   .card {
-    @apply bg-surface border border-border-subtle rounded-md;
+    /* Using extremely subtle borders, no shadow, sharp corners */
+    @apply bg-surface border border-border-subtle rounded-none sm:rounded-sm;
   }
   
   .card-hover {
     @apply transition-colors duration-200;
   }
   .card-hover:hover {
-    @apply bg-surface-hover border-white/10;
+    @apply bg-surface-hover border-border-subtle;
   }
 
-  /* Button - HGM Standard */
+  /* Button - Matte & Sharp Standard */
   .btn {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:pointer-events-none disabled:opacity-50;
+    /* Sharp corners, solid color, no shadow */
+    @apply inline-flex items-center justify-center rounded-none sm:rounded-sm text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-subtle disabled:pointer-events-none disabled:opacity-50;
   }
   
   .btn-primary {
@@ -168,16 +171,16 @@
   }
   
   .btn-secondary {
-    @apply bg-white/10 text-white hover:bg-white/20 border border-white/10;
+    @apply bg-surface-hover text-text-primary hover:bg-border-subtle border border-border-subtle;
   }
   
   .btn-ghost {
-    @apply hover:bg-white/5 text-slate-300 hover:text-white;
+    @apply hover:bg-surface-hover text-text-secondary hover:text-text-primary;
   }
 
-  /* Input - HGM Standard */
+  /* Input - Matte & Sharp Standard */
   .input {
-    @apply bg-surface border border-border-subtle rounded-sm px-3 py-2 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-blue-light/50 transition-colors;
+    @apply bg-background border border-border-subtle rounded-none sm:rounded-sm px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-blue-light transition-colors;
   }
 
   /* Data Table Row - HGM Standard */
@@ -194,58 +197,58 @@
   
   /* Heading variants */
   .text-heading-display {
-    @apply font-heading font-black text-5xl sm:text-6xl lg:text-7xl tracking-tighter leading-none text-slate-100;
+    @apply font-heading font-black text-5xl sm:text-6xl lg:text-7xl tracking-tighter leading-[1.0] text-text-primary;
   }
 
   .text-heading-xl {
-    @apply font-heading font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-tight text-slate-100;
+    @apply font-heading font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.1] text-text-primary;
   }
 
   .text-heading-lg {
-    @apply font-heading font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tighter leading-tight text-slate-100;
+    @apply font-heading font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tighter leading-[1.1] text-text-primary;
   }
 
   .text-heading-md {
-    @apply font-heading font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tighter leading-tight text-slate-100;
+    @apply font-heading font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-[1.2] text-text-primary;
   }
 
   .text-heading-sm {
-    @apply font-heading font-bold text-xl sm:text-2xl tracking-tighter leading-tight text-slate-100;
+    @apply font-heading font-semibold text-xl sm:text-2xl tracking-tight leading-[1.2] text-text-primary;
   }
 
   /* Body text variants */
   .text-body-lg {
-    @apply font-body font-normal text-lg text-slate-300 leading-relaxed;
+    @apply font-body font-normal text-lg text-text-secondary leading-relaxed;
   }
 
   .text-body-md {
-    @apply font-body font-normal text-base text-slate-300 leading-relaxed;
+    @apply font-body font-normal text-base text-text-secondary leading-relaxed;
   }
 
   .text-body-sm {
-    @apply font-body font-normal text-sm text-slate-300 leading-relaxed;
+    @apply font-body font-normal text-sm text-text-secondary leading-relaxed;
   }
 
   .text-body-xs {
-    @apply font-body font-normal text-xs text-slate-400 leading-normal;
+    @apply font-body font-normal text-xs text-text-tertiary leading-normal;
   }
 
   /* Metadata variant */
   .text-meta {
-    @apply font-heading uppercase tracking-widest text-[10px] font-semibold text-slate-400;
+    @apply font-heading uppercase tracking-wider text-[11px] font-semibold text-text-tertiary;
   }
 
   /* Data/Mono variant - with tabular nums for strict alignment */
   .text-data {
-    @apply font-mono font-bold text-slate-100 tabular-nums;
+    @apply font-mono font-bold text-text-primary tabular-nums;
   }
 
   .text-data-sm {
-    @apply font-mono font-medium text-sm text-slate-300 tabular-nums;
+    @apply font-mono font-medium text-sm text-text-secondary tabular-nums;
   }
 
   .text-data-xs {
-    @apply font-mono font-medium text-xs text-slate-400 tabular-nums;
+    @apply font-mono font-medium text-xs text-text-tertiary tabular-nums;
   }
 
   /* Glassmorphism variants */
